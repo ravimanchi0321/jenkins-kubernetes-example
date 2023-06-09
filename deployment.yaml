@@ -32,3 +32,9 @@ spec:
         image: nginx:1.14.2
         ports:
         - containerPort: 80
+version: 0.2
+env:
+  shell: bash
+  variables:
+    envName: ${nonprod}
+    region: ${us-east-1}
