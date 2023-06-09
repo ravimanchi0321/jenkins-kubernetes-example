@@ -32,9 +32,23 @@ spec:
         image: nginx:1.14.2
         ports:
         - containerPort: 80
+        
+        
 version: 0.2
-env:
-  shell: bash
-  variables:
-    envName: ${nonprod}
-    region: ${us-east-1}
+os: linux
+files:
+  - source: /index.html
+    destination: /var/www/html/
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
+        
